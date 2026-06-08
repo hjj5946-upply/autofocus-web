@@ -26,6 +26,3 @@ dist-ssr
 # Claude
 CLAUDE.md
 .claude/
-
-# GitHub Actions (로컬에서만 관리)
-.github/

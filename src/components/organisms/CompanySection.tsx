@@ -312,7 +312,7 @@ export function CompanySection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="company" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
+    <section id="company" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px] overflow-hidden">
       <Container>
 
         {/* ── Header ── */}

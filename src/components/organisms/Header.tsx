@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
 import afMainLogo from '../../assets/af_mainLogo.png'
 
@@ -10,6 +11,8 @@ const LANGS = [
 
 export function Header() {
   const { isDark, toggleTheme, language, setLanguage } = useTheme()
+  const navigate = useNavigate()
+  const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
@@ -30,7 +33,13 @@ export function Header() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const handleLogoClick = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      navigate('/')
+    }
+  }
   const currentLabel = LANGS.find(l => l.code === language)?.label ?? 'KR'
 
   const iconColor = scrolled
@@ -40,7 +49,7 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-ide-bg/80 backdrop-blur-md border-b border-slate-200/60 dark:border-white/6'
+        ? 'bg-white/80 dark:bg-ide-bg/80 backdrop-blur-md'
         : 'bg-transparent'
         }`}
     >
@@ -49,7 +58,7 @@ export function Header() {
 
           {/* Logo */}
           <button
-            onClick={scrollToTop}
+            onClick={handleLogoClick}
             className="flex items-center gap-2 cursor-pointer group"
           >
             <img
@@ -80,7 +89,7 @@ export function Header() {
               {/* Dropdown */}
               {langOpen && (
                 <div
-                  className="absolute top-full right-0 mt-2 rounded-xl overflow-hidden border border-slate-200/70 dark:border-white/10 shadow-xl"
+                  className="absolute top-full right-0 mt-2 rounded-xl overflow-hidden shadow-xl"
                   style={{
                     backgroundColor: isDark ? 'rgba(26,29,46,0.97)' : 'rgba(255,255,255,0.97)',
                     backdropFilter: 'blur(12px)',

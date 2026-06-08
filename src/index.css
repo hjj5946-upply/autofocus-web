@@ -8,12 +8,12 @@
   --color-brand-primary: #1e293b;
   --color-brand-accent: #3b82f6;
 
-  /* IDE dark palette */
-  --color-ide-bg:     #1a1d2e;
-  --color-ide-deep:   #0f1120;
-  --color-ide-card:   #21253a;
-  --color-ide-text:   #c8d3e8;
-  --color-ide-muted:  #6b7a99;
+  /* IDE dark palette — VSCode-style #191A1B */
+  --color-ide-bg:     #191a1b;
+  --color-ide-deep:   #111213;
+  --color-ide-card:   #252526;
+  --color-ide-text:   #d4d4d4;
+  --color-ide-muted:  #858585;
 
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
@@ -24,11 +24,11 @@
   html {
     scroll-behavior: smooth;
     /* Matches canvas gradient so there's no flash before canvas starts */
-    background-color: #b8d4ee;
+    background-color: #e4e6e9;
     overflow-x: hidden;
   }
   html.dark {
-    background-color: #060d1a;
+    background-color: #111213;
   }
 
   body {

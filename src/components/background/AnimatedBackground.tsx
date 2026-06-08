@@ -81,13 +81,13 @@ export function AnimatedBackground() {
       // — Background gradient ———————————————————————————
       const grad = ctx.createLinearGradient(0, 0, w, h)
       if (dark) {
-        grad.addColorStop(0,   '#07101f')
-        grad.addColorStop(0.5, '#0f1a2e')
-        grad.addColorStop(1,   '#09111f')
+        grad.addColorStop(0,   '#111213')
+        grad.addColorStop(0.5, '#17181a')
+        grad.addColorStop(1,   '#111213')
       } else {
-        grad.addColorStop(0,   '#c8dff5')
-        grad.addColorStop(0.5, '#d8ebf9')
-        grad.addColorStop(1,   '#cce2f6')
+        grad.addColorStop(0,   '#e2e4e7')
+        grad.addColorStop(0.5, '#e8eaed')
+        grad.addColorStop(1,   '#e0e3e6')
       }
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, w, h)
@@ -120,8 +120,8 @@ export function AnimatedBackground() {
             const t = (1 - d / MAX_D)
             ctx.beginPath()
             ctx.strokeStyle = dark
-              ? `rgba(100, 149, 210, ${t * 0.24})`
-              : `rgba(30, 80, 160, ${t * 0.14})`
+              ? `rgba(140, 150, 165, ${t * 0.18})`
+              : `rgba(100, 110, 125, ${t * 0.18})`
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
             ctx.stroke()
@@ -133,8 +133,8 @@ export function AnimatedBackground() {
       for (const p of particles) {
         ctx.beginPath()
         ctx.fillStyle = dark
-          ? `rgba(100, 160, 230, 0.50)`
-          : `rgba(30, 80, 180, 0.35)`
+          ? `rgba(150, 160, 180, 0.40)`
+          : `rgba(120, 130, 145, 0.40)`
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         ctx.fill()
       }

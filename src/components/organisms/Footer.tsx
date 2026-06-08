@@ -34,6 +34,8 @@ export function Footer({ onScrollTo }: FooterProps) {
                 onClick={() => scrollTo('home')}
                 className="flex items-center gap-2.5 mb-4 cursor-pointer group"
               >
+
+                
                 <img
                   src={afMainLogo}
                   alt="AutoFocus"

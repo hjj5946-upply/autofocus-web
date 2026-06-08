@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude
+CLAUDE.md
+.claude/
+
+# GitHub Actions (로컬에서만 관리)
+.github/

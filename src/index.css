@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* Tailwind v4: class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens */
+@theme {
+  --color-brand-primary: #1e293b;
+  --color-brand-accent: #3b82f6;
+
+  /* IDE dark palette */
+  --color-ide-bg:     #1a1d2e;
+  --color-ide-deep:   #0f1120;
+  --color-ide-card:   #21253a;
+  --color-ide-text:   #c8d3e8;
+  --color-ide-muted:  #6b7a99;
+
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* Base */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Matches canvas gradient so there's no flash before canvas starts */
+    background-color: #b8d4ee;
+  }
+  html.dark {
+    background-color: #060d1a;
+  }
+
+  body {
+    @apply font-sans antialiased transition-colors duration-300;
+    /* transparent — canvas handles the background */
+    background-color: transparent;
+    @apply text-slate-800;
+    @apply dark:text-ide-text;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  section[id] {
+    scroll-margin-top: 64px;
+  }
+
+  button, a {
+    cursor: pointer;
+  }
+}

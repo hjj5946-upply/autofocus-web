@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Skill(run)",
+      "Bash(npx vite *)",
+      "Bash(Start-Sleep -Seconds 3)",
+      "Bash(Get-Content \"C:\\\\Users\\\\오토포~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--0-dev-autofocus-web\\\\4f9bc742-ef74-4065-aa95-6222903906ae\\\\tasks\\\\b6b99j3fc.output\")",
+      "Bash(Select-Object -First 20)",
+      "Bash(node *)",
+      "Bash(where chromium *)",
+      "Bash(where chromium-browser *)",
+      "Bash(npx playwright *)",
+      "Bash(npx --yes @playwright/browser-chromium@latest install)",
+      "Bash(start http://localhost:5174)",
+      "Bash(cd /tmp)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(npm uninstall *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\0.dev\\\\autofocus-web\" -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(del *)"
+    ]
+  }
+}

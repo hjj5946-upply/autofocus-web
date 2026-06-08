@@ -61,7 +61,7 @@ export function HeroSection({ onScrollTo }: HeroSectionProps) {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-12 text-center">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
 
         {/* Tag line */}
         <div className="hero-tag flex items-center justify-center gap-3 mb-8">
@@ -73,7 +73,7 @@ export function HeroSection({ onScrollTo }: HeroSectionProps) {
         </div>
 
         {/* Title */}
-        <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight mb-6">
+        <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight mb-6">
           {t('hero.title_line1')}
           <br />
           <span
@@ -113,7 +113,7 @@ export function HeroSection({ onScrollTo }: HeroSectionProps) {
       </div>
 
       {/* Scroll indicator */}
-      <div className="hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      <div className="hero-scroll absolute bottom-24 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
         <span className="text-xs font-mono text-slate-400 dark:text-white/25 tracking-widest uppercase">
           {t('hero.scroll_hint')}
         </span>
@@ -122,7 +122,7 @@ export function HeroSection({ onScrollTo }: HeroSectionProps) {
 
       {/* Module strip */}
       <div className="absolute bottom-0 left-0 right-0 border-t border-slate-100 dark:border-white/5">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-3 flex items-center justify-center gap-6 flex-wrap">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-3 flex items-center justify-center gap-3 sm:gap-6 flex-wrap">
           {['PDI', 'LOGISTICS', 'SALES & CRM', 'DMS', 'PARTS', 'FINANCE'].map((mod) => (
             <span key={mod} className="text-xs font-mono text-slate-300 dark:text-white/15 tracking-wider">
               {mod}

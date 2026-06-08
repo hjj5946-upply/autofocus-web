@@ -53,9 +53,9 @@ export function ReferencesSection() {
   }, { scope: sectionRef })
 
   return (
-    <section ref={sectionRef} className="py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
+    <section ref={sectionRef} className="py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
       <Container>
-        <div className="ref-header text-center mb-16">
+        <div className="ref-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">
             {t('references.tag')}
           </SectionTag>

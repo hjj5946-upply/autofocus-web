@@ -55,7 +55,7 @@ export function Header() {
             <img
               src={afMainLogo}
               alt="AutoFocus"
-              className="h-8 w-auto object-contain transition-opacity duration-200"
+              className="h-8 w-auto object-contain transition-all duration-200 dark:brightness-0 dark:invert"
             />
           </button>
 

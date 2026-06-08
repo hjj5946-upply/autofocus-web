@@ -25,6 +25,7 @@
     scroll-behavior: smooth;
     /* Matches canvas gradient so there's no flash before canvas starts */
     background-color: #b8d4ee;
+    overflow-x: hidden;
   }
   html.dark {
     background-color: #060d1a;
@@ -36,6 +37,7 @@
     background-color: transparent;
     @apply text-slate-800;
     @apply dark:text-ide-text;
+    overflow-x: hidden;
   }
 
   * {

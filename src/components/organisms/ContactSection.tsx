@@ -41,7 +41,7 @@ export function ContactSection() {
     'w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-accent/50 focus:border-brand-accent transition-colors text-sm'
 
   return (
-    <section id="contact" ref={sectionRef} className="scroll-mt-16 py-24 bg-slate-950">
+    <section id="contact" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-slate-950">
       <Container>
         <div className="contact-inner max-w-2xl mx-auto">
           <div className="text-center mb-12">

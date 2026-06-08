@@ -312,15 +312,15 @@ export function CompanySection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="company" ref={sectionRef} className="scroll-mt-16 py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
+    <section id="company" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
       <Container>
 
         {/* ── Header ── */}
-        <div className="company-header text-center mb-20">
+        <div className="company-header text-center mb-12 sm:mb-20">
           <SectionTag className="justify-center mb-5">
             {t('company.tag')}
           </SectionTag>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight whitespace-pre-line">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight sm:whitespace-pre-line">
             {t('company.title')}
           </h2>
           <p className="text-slate-500 dark:text-ide-muted max-w-xl mx-auto leading-relaxed">
@@ -329,7 +329,7 @@ export function CompanySection() {
         </div>
 
         {/* ── History marquee ── */}
-        <div className="company-timeline mb-24">
+        <div className="company-timeline mb-12 sm:mb-24">
 
           {/* Label row */}
           <div className="history-label flex items-center justify-between mb-6">
@@ -339,7 +339,7 @@ export function CompanySection() {
                 {t('company.history_tag')}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-slate-400/60 dark:text-white/20 tracking-widest">
+            <span className="hidden sm:block text-[10px] font-mono text-slate-400/60 dark:text-white/20 tracking-widest">
               2003 — 2026 · DRAG TO NAVIGATE
             </span>
           </div>
@@ -487,7 +487,7 @@ export function CompanySection() {
 
             {/* CEO */}
             <div className="flex flex-col items-center">
-              <div className="org-ceo px-10 py-4 rounded-xl text-center bg-slate-800 dark:bg-white/8 border border-slate-700/50 dark:border-white/12 shadow-lg shadow-slate-900/10">
+              <div className="org-ceo px-6 sm:px-10 py-4 rounded-xl text-center bg-slate-800 dark:bg-white/8 border border-slate-700/50 dark:border-white/12 shadow-lg shadow-slate-900/10">
                 <div className="text-[9px] font-mono tracking-[0.25em] text-slate-400 dark:text-ide-muted mb-1.5 uppercase">
                   Executive
                 </div>
@@ -495,11 +495,43 @@ export function CompanySection() {
                   {t(CEO.labelKey)}
                 </div>
               </div>
-              <div className={`org-connector w-px h-7 ${LINE}`} />
+              <div className={`org-connector w-px h-7 ${LINE} hidden md:block`} />
             </div>
 
-            {/* 4 Departments */}
-            <div className="w-full overflow-x-auto">
+            {/* Mobile org: 2×2 grid, no connectors */}
+            <div className="md:hidden grid grid-cols-2 gap-3 mt-4">
+              {DEPARTMENTS.map((dept) => (
+                <div
+                  key={dept.id}
+                  className="org-dept rounded-xl overflow-hidden shadow-sm"
+                  style={{ border: `1px solid ${dept.color}30` }}
+                >
+                  <div className="px-3 py-2.5 flex items-center gap-2" style={{ backgroundColor: `${dept.color}14` }}>
+                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: dept.color }} />
+                    <span className="text-xs font-bold tracking-[0.06em] leading-tight" style={{ color: dept.color }}>
+                      {t(dept.labelKey)}
+                    </span>
+                  </div>
+                  <div className="p-2 flex flex-col gap-1 bg-white/40 dark:bg-ide-bg/30">
+                    {dept.teams.map((team) => (
+                      <div
+                        key={team.id}
+                        className="org-team flex items-center gap-1.5 px-2 py-1.5 rounded"
+                        style={{ backgroundColor: `${dept.color}08`, border: `1px solid ${dept.color}20` }}
+                      >
+                        <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: `${dept.color}80` }} />
+                        <span className="text-[10px] font-mono leading-tight" style={{ color: dept.color }}>
+                          {t(team.labelKey)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop org: 4-col with connectors */}
+            <div className="hidden md:block w-full overflow-x-auto">
               <div className="grid grid-cols-4 min-w-[640px]">
                 {DEPARTMENTS.map((dept, idx) => (
                   <div key={dept.id} className="flex flex-col items-center px-2.5">

@@ -85,9 +85,9 @@ export function TechnologySection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="technology" ref={sectionRef} className="scroll-mt-16 py-24">
+    <section id="technology" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24">
       <Container>
-        <div className="tech-header text-center mb-16">
+        <div className="tech-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">
             {t('technology.tag')}
           </SectionTag>

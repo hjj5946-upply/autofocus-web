@@ -82,9 +82,9 @@ export function ProblemSection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="problem" ref={sectionRef} className="scroll-mt-16 py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
+    <section id="problem" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
       <Container>
-        <div className="problem-header text-center mb-16">
+        <div className="problem-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">
             {t('problem.tag')}
           </SectionTag>

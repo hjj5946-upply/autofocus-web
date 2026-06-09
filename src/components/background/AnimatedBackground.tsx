@@ -76,8 +76,8 @@ export function AnimatedBackground() {
         const opacity = wv.opacityBase + wv.opacityMid
 
         ctx.strokeStyle = dark
-          ? `rgba(148, 163, 184, ${opacity})`   // slate-400
-          : `rgba(71,  85, 105,  ${opacity})`   // slate-600
+          ? `rgba(148, 163, 184, ${opacity})`
+          : `rgba(71,  85, 105,  ${opacity})`
 
         ctx.beginPath()
         const STEP = 4

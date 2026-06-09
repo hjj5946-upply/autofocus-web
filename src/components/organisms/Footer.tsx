@@ -23,7 +23,7 @@ export function Footer({ onScrollTo }: FooterProps) {
   }
 
   return (
-    <footer style={{ backgroundColor: '#1e293b', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+    <footer className="bg-brand-primary dark:bg-ide-deep" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
       <Container>
         <div className="py-12 flex flex-col md:flex-row items-start justify-between gap-10">
 

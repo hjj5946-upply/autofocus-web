@@ -1,46 +1,14 @@
 import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useTheme } from '../../hooks/useTheme'
 
-gsap.registerPlugin(ScrollTrigger)
-
-interface Particle {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  baseVx: number
-  baseVy: number
-  r: number
-}
-
-const N = 70
-const MAX_D = 170
-const SPEED = 0.25
-
-function createParticles(w: number, h: number): Particle[] {
-  return Array.from({ length: N }, () => {
-    const vx = (Math.random() - 0.5) * SPEED
-    const vy = (Math.random() - 0.5) * SPEED
-    return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx, vy,
-      baseVx: vx,
-      baseVy: vy,
-      r: Math.random() * 1.8 + 0.8,
-    }
-  })
-}
+const WAVE_COUNT = 24
+const SPEED = 0.00075   // very slow — full cycle ~45 seconds
 
 export function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { isDark } = useTheme()
   const isDarkRef = useRef(isDark)
-  const scrollVelRef = useRef(0)
 
-  // Keep isDarkRef in sync so animation loop always reads current theme
   useEffect(() => {
     isDarkRef.current = isDark
   }, [isDark])
@@ -49,95 +17,91 @@ export function AnimatedBackground() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')!
-
     let rafId: number
-    let particles: Particle[] = []
+    const startTime = performance.now()
 
     const resize = () => {
-      canvas.width = window.innerWidth
+      canvas.width  = window.innerWidth
       canvas.height = window.innerHeight
-      particles = createParticles(canvas.width, canvas.height)
     }
     resize()
     window.addEventListener('resize', resize)
 
-    // GSAP ScrollTrigger: capture scroll velocity to subtly shift drift direction
-    const st = ScrollTrigger.create({
-      start: 0,
-      end: 'max',
-      onUpdate: (self) => {
-        scrollVelRef.current = self.getVelocity() / 5000
-      },
+    // Precompute per-wave constants so they're stable across frames
+    const waves = Array.from({ length: WAVE_COUNT }, (_, i) => {
+      const p = i / (WAVE_COUNT - 1)           // 0 → 1
+      const midBulge = Math.sin(Math.PI * p)   // 0 at edges, 1 at center
+      return {
+        progress: p,
+        midBulge,
+        freq1:  0.0055 + i * 0.00035,
+        freq2:  0.0090 + i * 0.00055,
+        phase1: i * 0.95,
+        phase2: i * 1.40 + 1.1,
+        // amplitude: largest in the vertical center
+        amp: 14 + midBulge * 44,
+        // opacity: center waves slightly more visible
+        opacityBase: 0.05,
+        opacityMid:  midBulge * 0.07,
+      }
     })
 
     const draw = () => {
-      const w = canvas.width
-      const h = canvas.height
+      const t  = (performance.now() - startTime) * SPEED
+      const w  = canvas.width
+      const h  = canvas.height
       const dark = isDarkRef.current
-      const sv = scrollVelRef.current
 
       ctx.clearRect(0, 0, w, h)
 
-      // — Background gradient ———————————————————————————
+      // ─ Background ────────────────────────────────────────────────────
       const grad = ctx.createLinearGradient(0, 0, w, h)
       if (dark) {
-        grad.addColorStop(0,   '#111213')
-        grad.addColorStop(0.5, '#17181a')
-        grad.addColorStop(1,   '#111213')
+        grad.addColorStop(0,    '#111213')
+        grad.addColorStop(0.5,  '#17181a')
+        grad.addColorStop(1,    '#111213')
       } else {
-        grad.addColorStop(0,   '#e2e4e7')
-        grad.addColorStop(0.5, '#e8eaed')
-        grad.addColorStop(1,   '#e0e3e6')
+        grad.addColorStop(0,    '#e2e4e7')
+        grad.addColorStop(0.45, '#eaecef')
+        grad.addColorStop(1,    '#e0e3e6')
       }
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, w, h)
 
-      // — Update particles ——————————————————————————————
-      for (const p of particles) {
-        // Smoothly blend toward base velocity + scroll influence
-        const targetVx = p.baseVx + sv * 0.4
-        const targetVy = p.baseVy
-        p.vx += (targetVx - p.vx) * 0.04
-        p.vy += (targetVy - p.vy) * 0.04
+      // ─ Wave lines ────────────────────────────────────────────────────
+      ctx.lineWidth = 1
 
-        p.x += p.vx
-        p.y += p.vy
+      for (const wv of waves) {
+        const yBase  = wv.progress * h
+        const opacity = wv.opacityBase + wv.opacityMid
 
-        if (p.x < 0 || p.x > w) { p.vx *= -1; p.baseVx *= -1 }
-        if (p.y < 0 || p.y > h) { p.vy *= -1; p.baseVy *= -1 }
-        p.x = Math.max(0, Math.min(w, p.x))
-        p.y = Math.max(0, Math.min(h, p.y))
-      }
+        ctx.strokeStyle = dark
+          ? `rgba(148, 163, 184, ${opacity})`   // slate-400
+          : `rgba(71,  85, 105,  ${opacity})`   // slate-600
 
-      // — Draw connections ——————————————————————————————
-      ctx.lineWidth = 0.5
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const d = Math.sqrt(dx * dx + dy * dy)
-          if (d < MAX_D) {
-            const t = (1 - d / MAX_D)
-            ctx.beginPath()
-            ctx.strokeStyle = dark
-              ? `rgba(140, 150, 165, ${t * 0.18})`
-              : `rgba(100, 110, 125, ${t * 0.18})`
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
-          }
-        }
-      }
-
-      // — Draw particles ————————————————————————————————
-      for (const p of particles) {
         ctx.beginPath()
-        ctx.fillStyle = dark
-          ? `rgba(150, 160, 180, 0.40)`
-          : `rgba(120, 130, 145, 0.40)`
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fill()
+        const STEP = 4
+        for (let x = 0; x <= w; x += STEP) {
+          const dy =
+            wv.amp * 0.62 * Math.sin(wv.freq1 * x + t          + wv.phase1) +
+            wv.amp * 0.38 * Math.sin(wv.freq2 * x + t * 1.35   + wv.phase2)
+          const y = yBase + dy
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+        }
+        ctx.stroke()
       }
+
+      // ─ Vignette ──────────────────────────────────────────────────────
+      const vg = ctx.createRadialGradient(w / 2, h / 2, h * 0.15, w / 2, h / 2, h * 0.85)
+      if (dark) {
+        vg.addColorStop(0,   'rgba(0,0,0,0)')
+        vg.addColorStop(1,   'rgba(0,0,0,0.35)')
+      } else {
+        vg.addColorStop(0,   'rgba(255,255,255,0)')
+        vg.addColorStop(1,   'rgba(200,205,215,0.30)')
+      }
+      ctx.fillStyle = vg
+      ctx.fillRect(0, 0, w, h)
 
       rafId = requestAnimationFrame(draw)
     }
@@ -147,9 +111,8 @@ export function AnimatedBackground() {
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', resize)
-      st.kill()
     }
-  }, []) // single mount — reads isDarkRef and scrollVelRef via refs
+  }, [])
 
   return (
     <canvas

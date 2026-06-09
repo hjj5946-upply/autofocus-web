@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useTheme } from '../../hooks/useTheme'
+import aniBackImage from '../../assets/aniBackImage.webp'
 
 const WAVE_COUNT = 24
 const SPEED = 0.00075   // very slow — full cycle ~45 seconds
@@ -41,8 +42,8 @@ export function AnimatedBackground() {
         // amplitude: largest in the vertical center
         amp: 14 + midBulge * 44,
         // opacity: center waves slightly more visible
-        opacityBase: 0.05,
-        opacityMid:  midBulge * 0.07,
+        opacityBase: 0.18,
+        opacityMid:  midBulge * 0.22,
       }
     })
 
@@ -54,30 +55,16 @@ export function AnimatedBackground() {
 
       ctx.clearRect(0, 0, w, h)
 
-      // ─ Background ────────────────────────────────────────────────────
-      const grad = ctx.createLinearGradient(0, 0, w, h)
-      if (dark) {
-        grad.addColorStop(0,    '#111213')
-        grad.addColorStop(0.5,  '#17181a')
-        grad.addColorStop(1,    '#111213')
-      } else {
-        grad.addColorStop(0,    '#e2e4e7')
-        grad.addColorStop(0.45, '#eaecef')
-        grad.addColorStop(1,    '#e0e3e6')
-      }
-      ctx.fillStyle = grad
-      ctx.fillRect(0, 0, w, h)
-
       // ─ Wave lines ────────────────────────────────────────────────────
-      ctx.lineWidth = 1
+      ctx.lineWidth = 1.5
 
       for (const wv of waves) {
         const yBase  = wv.progress * h
         const opacity = wv.opacityBase + wv.opacityMid
 
         ctx.strokeStyle = dark
-          ? `rgba(148, 163, 184, ${opacity})`
-          : `rgba(71,  85, 105,  ${opacity})`
+          ? `rgba(180, 205, 230, ${opacity})`
+          : `rgba(51,  65,  85,  ${opacity})`
 
         ctx.beginPath()
         const STEP = 4
@@ -115,11 +102,24 @@ export function AnimatedBackground() {
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
       className="pointer-events-none"
-      style={{ position: 'fixed', inset: 0, zIndex: 0, display: 'block' }}
+      style={{ position: 'fixed', inset: 0, zIndex: 0 }}
       aria-hidden="true"
-    />
+    >
+      <img
+        src={aniBackImage}
+        alt=""
+        style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition: 'center',
+          filter: isDark ? 'brightness(1.15) saturate(1.3) contrast(1.05)' : 'none',
+        }}
+      />
+      <canvas
+        ref={canvasRef}
+        style={{ position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' }}
+      />
+    </div>
   )
 }

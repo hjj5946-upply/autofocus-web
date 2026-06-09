@@ -15,6 +15,7 @@ import { TechnologySection } from './components/organisms/TechnologySection'
 import { ReferencesSection } from './components/organisms/ReferencesSection'
 import { CaseStudiesSection } from './components/organisms/CaseStudiesSection'
 import { CompanySection } from './components/organisms/CompanySection'
+import { OrgChartSection } from './components/organisms/OrgChartSection'
 import { SectionNavigator } from './components/organisms/SectionNavigator'
 import { Footer } from './components/organisms/Footer'
 import { ContactPage } from './pages/ContactPage'
@@ -52,6 +53,7 @@ function MainPage() {
           <ReferencesSection />
           <CaseStudiesSection />
           <CompanySection />
+          <OrgChartSection />
         </main>
         <Footer onScrollTo={scrollTo} />
       </div>

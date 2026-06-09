@@ -82,7 +82,7 @@ export function ProblemSection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="problem" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/72 backdrop-blur-[2px] dark:bg-ide-bg/80 dark:backdrop-blur-[2px]">
+    <section id="problem" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white/50 dark:bg-ide-bg/70">
       <Container>
         <div className="problem-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">
@@ -91,7 +91,7 @@ export function ProblemSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
             {t('problem.title')}
           </h2>
-          <p className="text-slate-500 dark:text-ide-muted max-w-xl mx-auto">
+          <p className="text-slate-700 dark:text-slate-300 max-w-xl mx-auto">
             {t('problem.subtitle')}
           </p>
         </div>

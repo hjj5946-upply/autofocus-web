@@ -17,7 +17,9 @@
     "darkMode": "다크 모드",
     "lightMode": "라이트 모드",
     "back": "뒤로가기",
-    "backToHome": "홈으로 돌아가기"
+    "backToHome": "홈으로 돌아가기",
+    "viewCaseStudy": "케이스 보기",
+    "viewAllCases": "전체 케이스 보기"
   },
   "hero": {
     "tag": "자동차 운영 플랫폼",

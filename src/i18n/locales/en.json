@@ -17,7 +17,9 @@
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
     "back": "Back",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "viewCaseStudy": "View Case Study",
+    "viewAllCases": "View All Cases"
   },
   "hero": {
     "tag": "AUTOMOTIVE OPERATING PLATFORM",

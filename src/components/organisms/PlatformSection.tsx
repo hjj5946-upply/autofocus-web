@@ -112,7 +112,7 @@ export function PlatformSection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="platform" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24">
+    <section id="platform" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white dark:bg-ide-bg">
       <Container>
         <div className="platform-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">

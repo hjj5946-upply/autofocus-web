@@ -28,7 +28,7 @@ export function HeroSection({ onScrollTo }: HeroSectionProps) {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-ide-bg"
     >
       {/* Subtle grid */}
       <div

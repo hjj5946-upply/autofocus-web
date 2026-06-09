@@ -69,7 +69,7 @@ export function CaseStudiesSection() {
   }, { scope: sectionRef })
 
   return (
-    <section id="case-studies" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24">
+    <section id="case-studies" ref={sectionRef} className="scroll-mt-16 py-16 sm:py-24 bg-white dark:bg-ide-bg">
       <Container>
         <div className="case-header text-center mb-10 sm:mb-16">
           <SectionTag className="justify-center mb-5">
@@ -142,7 +142,7 @@ export function CaseStudiesSection() {
                   to={`/cases/${CASE_SLUGS[caseKey]}`}
                   className="flex items-center gap-1.5 text-xs font-medium text-slate-400 dark:text-ide-muted hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
                 >
-                  View Case Study
+                  {t('common.viewCaseStudy')}
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
@@ -159,7 +159,7 @@ export function CaseStudiesSection() {
             to="/cases"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-white/15 text-slate-600 dark:text-ide-text text-sm font-medium hover:border-brand-accent/60 hover:text-brand-accent dark:hover:text-brand-accent transition-all"
           >
-            View All Cases
+            {t('common.viewAllCases')}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />

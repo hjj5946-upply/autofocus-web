@@ -13,7 +13,11 @@
     "loading": "読み込み中...",
     "language": "言語",
     "darkMode": "ダークモード",
-    "lightMode": "ライトモード"
+    "lightMode": "ライトモード",
+    "back": "戻る",
+    "backToHome": "ホームに戻る",
+    "viewCaseStudy": "事例を見る",
+    "viewAllCases": "全ての事例を見る"
   },
   "hero": {
     "tag": "自動車運営プラットフォーム",

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
-import { AnimatedBackground } from '../components/background/AnimatedBackground'
 import { Header } from '../components/organisms/Header'
 import { Footer } from '../components/organisms/Footer'
 import { Container } from '../components/atoms/Container'
@@ -40,9 +39,8 @@ export function ContactPage() {
 
   return (
     <>
-      <AnimatedBackground />
       <Header />
-      <div className="relative min-h-screen bg-white/78 backdrop-blur-[2px] dark:bg-ide-bg/82 dark:backdrop-blur-[2px]" style={{ zIndex: 1 }}>
+      <div className="relative min-h-screen bg-white dark:bg-ide-bg" style={{ zIndex: 1 }}>
 
       <main ref={contentRef} className="pt-24 pb-16 sm:pb-24">
         <Container>

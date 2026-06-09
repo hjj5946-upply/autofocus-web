@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
@@ -9,6 +10,11 @@ import { Container } from '../atoms/Container'
 gsap.registerPlugin(ScrollTrigger)
 
 const CASES = ['case1', 'case2', 'case3']
+const CASE_SLUGS: Record<string, string> = {
+  case1: 'case-1',
+  case2: 'case-2',
+  case3: 'case-3',
+}
 
 function CaseRow({
   icon,
@@ -81,7 +87,7 @@ export function CaseStudiesSection() {
           {CASES.map((caseKey) => (
             <div
               key={caseKey}
-              className="case-card rounded-xl border border-slate-200 dark:border-white/6 bg-white dark:bg-ide-card overflow-hidden hover:shadow-lg transition-all duration-200"
+              className="case-card rounded-xl border border-slate-200 dark:border-white/6 bg-white dark:bg-ide-card overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
             >
               {/* Card header */}
               <div className="px-6 pt-6 pb-4 border-b border-slate-100 dark:border-white/6">
@@ -94,7 +100,7 @@ export function CaseStudiesSection() {
               </div>
 
               {/* Card body */}
-              <div className="p-6 space-y-5">
+              <div className="p-6 space-y-5 flex-1">
                 <CaseRow
                   label={t('caseStudies.problem_label')}
                   text={t(`caseStudies.${caseKey}_problem`)}
@@ -129,9 +135,38 @@ export function CaseStudiesSection() {
                   }
                 />
               </div>
+
+              {/* Card CTA */}
+              <div className="px-6 pb-5">
+                <Link
+                  to={`/cases/${CASE_SLUGS[caseKey]}`}
+                  className="flex items-center gap-1.5 text-xs font-medium text-slate-400 dark:text-ide-muted hover:text-brand-accent dark:hover:text-brand-accent transition-colors"
+                >
+                  View Case Study
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* Section CTA */}
+        <div className="text-center mt-10">
+          <Link
+            to="/cases"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-white/15 text-slate-600 dark:text-ide-text text-sm font-medium hover:border-brand-accent/60 hover:text-brand-accent dark:hover:text-brand-accent transition-all"
+          >
+            View All Cases
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
+
       </Container>
     </section>
   )

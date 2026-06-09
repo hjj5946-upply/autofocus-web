@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
@@ -7,6 +8,15 @@ import { SectionTag } from '../atoms/SectionTag'
 import { Container } from '../atoms/Container'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const MODULE_SLUGS: Record<string, string> = {
+  pdi: '/solutions/pdi',
+  crm: '/solutions/crm',
+  dms: '/solutions/dms',
+  logistics: '/solutions',
+  parts: '/solutions',
+  finance: '/solutions',
+}
 
 const MODULES = [
   {
@@ -153,11 +163,38 @@ export function PlatformSection() {
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-slate-500 dark:text-ide-muted leading-relaxed">
+              <p className="text-sm text-slate-500 dark:text-ide-muted leading-relaxed mb-5">
                 {t(`platform.${key}_desc`)}
               </p>
+
+              {/* Explore link */}
+              <Link
+                to={MODULE_SLUGS[key]}
+                className="flex items-center gap-1.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ color }}
+              >
+                {t('common.learnMore')}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
             </div>
           ))}
+        </div>
+
+        {/* Section CTA */}
+        <div className="text-center mt-10">
+          <Link
+            to="/solutions"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-white/15 text-slate-600 dark:text-ide-text text-sm font-medium hover:border-brand-accent/60 hover:text-brand-accent dark:hover:text-brand-accent transition-all"
+          >
+            Explore All Solutions
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
         </div>
       </Container>
     </section>

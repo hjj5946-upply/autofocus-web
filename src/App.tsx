@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Routes, Route } from 'react-router-dom'
+import { ScrollToTop } from './components/ScrollToTop'
 import { useTheme } from './hooks/useTheme'
 import './i18n'
 
@@ -17,6 +18,13 @@ import { CompanySection } from './components/organisms/CompanySection'
 import { SectionNavigator } from './components/organisms/SectionNavigator'
 import { Footer } from './components/organisms/Footer'
 import { ContactPage } from './pages/ContactPage'
+import { SolutionsPage } from './pages/SolutionsPage'
+import { SolutionDetailPage } from './pages/SolutionDetailPage'
+import { ArchitecturePage } from './pages/ArchitecturePage'
+import { TechnologyPage } from './pages/TechnologyPage'
+import { CasesPage } from './pages/CasesPage'
+import { CaseDetailPage } from './pages/CaseDetailPage'
+import { CompanyPage } from './pages/CompanyPage'
 
 import type { SectionId } from './types'
 
@@ -60,10 +68,20 @@ function App() {
   }, [language, i18n])
 
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/solutions" element={<SolutionsPage />} />
+      <Route path="/solutions/:slug" element={<SolutionDetailPage />} />
+      <Route path="/architecture" element={<ArchitecturePage />} />
+      <Route path="/technology" element={<TechnologyPage />} />
+      <Route path="/cases" element={<CasesPage />} />
+      <Route path="/cases/:slug" element={<CaseDetailPage />} />
+      <Route path="/company" element={<CompanyPage />} />
     </Routes>
+    </>
   )
 }
 

@@ -9,16 +9,26 @@ const LANGS = [
   { code: 'ja', label: 'JP' },
 ] as const
 
+const NAV_LINKS = [
+  { label: 'Solutions', path: '/solutions' },
+  { label: 'Cases', path: '/cases' },
+  { label: 'Company', path: '/company' },
+  { label: 'Contact', path: '/contact' },
+]
+
 export function Header() {
   const { isDark, toggleTheme, language, setLanguage } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
-  const [scrolled, setScrolled] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
 
+  const isMainPage = location.pathname === '/'
+
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    const handler = () => setIsScrolled(window.scrollY > 50)
+    handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -40,38 +50,69 @@ export function Header() {
       navigate('/')
     }
   }
+
   const currentLabel = LANGS.find(l => l.code === language)?.label ?? 'KR'
 
-  const iconColor = scrolled
+  const iconColor = isScrolled
     ? 'text-slate-500 dark:text-ide-muted'
     : 'text-slate-600 dark:text-white/60'
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-ide-bg/80 backdrop-blur-md'
-        : 'bg-transparent'
-        }`}
+      className={[
+        'fixed top-0 left-0 right-0 z-[1000]',
+        'h-16 border-b',
+        'transition-[background-color,border-color,box-shadow] duration-300',
+        isScrolled
+          ? 'bg-white/70 dark:bg-ide-bg/80 backdrop-blur-md shadow-sm border-black/[0.08] dark:border-white/[0.08]'
+          : 'bg-transparent border-transparent',
+      ].join(' ')}
     >
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-12 h-full">
+        <div className="flex items-center justify-between h-full">
 
-          {/* Logo */}
-          <button
-            onClick={handleLogoClick}
-            className="flex items-center gap-2 cursor-pointer group"
-          >
-            <img
-              src={afMainLogo}
-              alt="AutoFocus"
-              className="h-8 w-auto object-contain transition-all duration-200 dark:brightness-0 dark:invert"
-            />
-          </button>
+          {/* Left: Logo + Nav links */}
+          <div className="flex items-center gap-8">
+            <button
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <img
+                src={afMainLogo}
+                alt="AutoFocus"
+                className="h-8 w-auto object-contain dark:brightness-0 dark:invert"
+              />
+            </button>
+
+            {/* Nav links — detail pages only */}
+            {!isMainPage && (
+              <nav className="hidden md:flex items-center gap-1">
+                {NAV_LINKS.map(({ label, path }) => {
+                  const isActive =
+                    location.pathname === path ||
+                    location.pathname.startsWith(path + '/')
+                  return (
+                    <button
+                      key={path}
+                      onClick={() => navigate(path)}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors duration-200 cursor-pointer ${
+                        isActive
+                          ? 'text-brand-accent bg-brand-accent/8'
+                          : 'text-slate-500 dark:text-ide-muted hover:text-slate-800 dark:hover:text-ide-text hover:bg-slate-100/60 dark:hover:bg-white/6'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  )
+                })}
+              </nav>
+            )}
+          </div>
 
           {/* Right controls */}
           <div className="flex items-center gap-5">
 
-            {/* Language selector — text only, no globe */}
+            {/* Language selector */}
             <div ref={langRef} className="relative">
               <button
                 onClick={() => setLangOpen(prev => !prev)}
@@ -86,7 +127,6 @@ export function Header() {
                 </svg>
               </button>
 
-              {/* Dropdown */}
               {langOpen && (
                 <div
                   className="absolute top-full right-0 mt-2 rounded-xl overflow-hidden shadow-xl"
@@ -110,14 +150,13 @@ export function Header() {
               )}
             </div>
 
-            {/* Theme toggle — icon only, hover = color change */}
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               className={`transition-colors duration-200 hover:text-brand-accent cursor-pointer ${iconColor}`}
               aria-label="Toggle theme"
             >
               {isDark ? (
-                /* Sun */
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <circle cx="12" cy="12" r="5" />
                   <line x1="12" y1="1" x2="12" y2="3" />
@@ -130,7 +169,6 @@ export function Header() {
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                 </svg>
               ) : (
-                /* Moon */
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>

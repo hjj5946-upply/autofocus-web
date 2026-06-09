@@ -41,10 +41,10 @@ export function ContactPage() {
   return (
     <>
       <AnimatedBackground />
-    <div className="relative min-h-screen bg-white/78 backdrop-blur-[2px] dark:bg-ide-bg/82 dark:backdrop-blur-[2px]" style={{ zIndex: 1 }}>
       <Header />
+      <div className="relative min-h-screen bg-white/78 backdrop-blur-[2px] dark:bg-ide-bg/82 dark:backdrop-blur-[2px]" style={{ zIndex: 1 }}>
 
-      <main ref={contentRef} className="pt-24 sm:pt-28 pb-16 sm:pb-24">
+      <main ref={contentRef} className="pt-24 pb-16 sm:pb-24">
         <Container>
           <div className="contact-inner max-w-2xl mx-auto">
 

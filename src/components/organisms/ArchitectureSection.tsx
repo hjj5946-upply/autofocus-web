@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
@@ -225,6 +226,21 @@ export function ArchitectureSection() {
           </div>
 
         </div>
+
+        {/* Section CTA */}
+        <div className="text-center mt-10">
+          <Link
+            to="/architecture"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-white/15 text-slate-600 dark:text-ide-text text-sm font-medium hover:border-brand-accent/60 hover:text-brand-accent dark:hover:text-brand-accent transition-all"
+          >
+            View Full Architecture
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
+
       </Container>
     </section>
   )

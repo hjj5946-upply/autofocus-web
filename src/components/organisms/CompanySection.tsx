@@ -1,6 +1,6 @@
 import { useRef, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -588,7 +588,17 @@ export function CompanySection() {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-16">
+          <Link
+            to="/company"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-slate-900 dark:bg-white/10 text-white text-sm font-medium hover:bg-slate-700 dark:hover:bg-white/15 transition-colors"
+          >
+            Company Profile
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
           <button
             onClick={() => navigate('/contact')}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-brand-primary/30 dark:border-brand-accent/30 text-brand-primary dark:text-brand-accent text-sm font-medium hover:bg-brand-primary/5 dark:hover:bg-brand-accent/8 hover:border-brand-primary/60 dark:hover:border-brand-accent/60 transition-all cursor-pointer"
